@@ -1,0 +1,48 @@
+================================================================================
+REPORTE DE VENTAS
+================================================================================
+
+Producto                           Cantidad           Costo
+--------------------------------------------------------------------------------
+
+Tipo de producto: Bakery
+Homemade bread                       466.00{costo:>15.2f}
+French fries                          37.00{costo:>15.2f}
+Cuban sandwiche                        2.00{costo:>15.2f}
+Total Bakery:                                       8860.52
+================================================================================
+
+Tipo de producto: Dairy
+Green smoothie                       580.00{costo:>15.2f}
+Rustic breakfast                     200.00{costo:>15.2f}
+Total Dairy:                                       14518.40
+================================================================================
+
+Tipo de producto: Fruit
+Fresh blueberries                   3744.00{costo:>15.2f}
+Plums                               1231.00{costo:>15.2f}
+Sweet fresh stawberry                221.00{costo:>15.2f}
+Fresh stawberry                      221.00{costo:>15.2f}
+Smoothie with chia seeds              61.00{costo:>15.2f}
+Tomatoes                               1.00{costo:>15.2f}
+Total Fruit:                                      116665.75
+================================================================================
+
+Tipo de producto: Meat
+Ground beef meat burger              146.00{costo:>15.2f}
+Total Meat:                                         1712.58
+================================================================================
+
+Tipo de producto: Vegetable
+Corn                                1664.00{costo:>15.2f}
+Sandwich with salad                   23.00{costo:>15.2f}
+Raw legums                            13.00{costo:>15.2f}
+Hazelnut in black ceramic bowl         7.00{costo:>15.2f}
+Total Vegetable:                                   23478.12
+================================================================================
+
+Gran total:                                       165235.37
+================================================================================
+
+Tiempo de ejecución: 0.0057 segundos
+================================================================================

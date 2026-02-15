@@ -51,7 +51,6 @@ def main():
 
     # Calcular ventas por producto
     ventas_x_producto = calcular_ventas(catalogo, vtas)
-    print(ventas_x_producto)
 
     # Calcular tiempo transcurrido
     tiempo_fin = time.time()
