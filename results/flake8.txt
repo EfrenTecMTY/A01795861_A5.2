@@ -1,0 +1,147 @@
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:28:1: E302 expected 2 blank lines, found 1
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:31:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:32:80: E501 line too long (81 > 79 characters)
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:34:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:38:66: W291 trailing whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:41:77: W291 trailing whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:45:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:47:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:50:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:62:43: E231 missing whitespace after ','
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:68:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:69:80: E501 line too long (81 > 79 characters)
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:71:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:76:80: E501 line too long (82 > 79 characters)
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:77:80: E501 line too long (81 > 79 characters)
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:84:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:88:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:91:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:97:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:106:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:110:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:113:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:119:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:128:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:132:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:137:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:145:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:151:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:161:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:165:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:169:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:175:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:190:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:195:80: E501 line too long (83 > 79 characters)
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:196:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:200:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:206:80: E501 line too long (89 > 79 characters)
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:207:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:214:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:218:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:223:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:234:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:242:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:245:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:247:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:251:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:255:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:259:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:262:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:264:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:271:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:274:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:276:80: E501 line too long (90 > 79 characters)
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:278:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:280:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:284:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:290:62: W291 trailing whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:291:25: E128 continuation line under-indented for visual indent
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:294:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:298:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:307:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:310:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:317:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:325:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:331:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:339:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:346:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:354:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:357:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:359:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:363:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:367:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:369:70: W291 trailing whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:370:27: E128 continuation line under-indented for visual indent
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:371:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:374:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:376:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:382:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:383:80: E501 line too long (81 > 79 characters)
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:385:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:388:26: E128 continuation line under-indented for visual indent
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:390:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:392:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:396:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:398:80: E501 line too long (82 > 79 characters)
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:400:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:405:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:408:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:411:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:420:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:423:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:426:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:428:80: E501 line too long (82 > 79 characters)
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:439:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:443:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:446:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:449:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:454:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:462:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:467:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:473:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:476:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:486:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:490:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:496:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:499:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:502:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:508:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:513:80: E501 line too long (80 > 79 characters)
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:514:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:517:80: E501 line too long (81 > 79 characters)
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:520:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:530:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:533:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:540:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:544:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:547:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:550:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:555:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:563:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:568:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:571:80: E501 line too long (85 > 79 characters)
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:574:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:577:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:587:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:591:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:597:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:600:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:603:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:609:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:614:80: E501 line too long (81 > 79 characters)
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:615:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:618:80: E501 line too long (83 > 79 characters)
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:622:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:632:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:635:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:642:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:645:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:657:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:664:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:670:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:677:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:689:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:692:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:702:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:709:1: W293 blank line contains whitespace
+D:\Proyectos\Python\pyejercicio_dev2\source\computeSales.py:716:1: W293 blank line contains whitespace
