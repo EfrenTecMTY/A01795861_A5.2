@@ -35,9 +35,10 @@ def main():
     Procesos:
         1. Valida argumentos de línea de comandos
         2. Valida existencia de archivos de entrada
-        3. Procesa datos (pendiente implementación)
+           2.1 Carga la información que es válida de los archivos 
         4. Genera las ventas
-        5. Guarda resultados
+        5. Imprime reporte en pantalla
+        5. Guarda resultados en archivo nombrado como SalesResults.txt
     """
     validar_num_params()
     
@@ -47,17 +48,14 @@ def main():
     archivo_vtas, vtas = validar_archivo_vtas()
     
 
-    #datos=obtener_datos_archivo(archivo)
-    # estadisticas=generar_estadisticas(datos)
-
-    # # Calcular tiempo transcurrido
+    # Calcular tiempo transcurrido
     tiempo_fin = time.time()
     tiempo_ejecucion = tiempo_fin - tiempo_inicio
 
-    # # Imprimir en pantalla de la consola
-    # imprimir_estadisticas(estadisticas,tiempo_ejecucion)
-    # # Guardar en archivo
-    # guardar_estadisticas(estadisticas,tiempo_ejecucion)
+    # Imprimir en pantalla de la consola
+    # imprimir_reporte_vtas(estadisticas,tiempo_ejecucion)
+    # Guardar en archivo
+    # guardar_reporte_vtas(estadisticas,tiempo_ejecucion)
 
 
 def validar_num_params():
@@ -81,8 +79,8 @@ def validar_archivo_catalogo():
     Valida la existencia del archivo de catálogo de precios.
     
     Verifica que el archivo especificado en el primer argumento exista
-    en el sistema. En futuras versiones validará también el formato JSON
-    y el esquema del catálogo.
+    en el sistema. Valida también el formato JSON, el esquema del catálogo y
+    realiza la carga de la información.
     
     Returns:
         str: Ruta del archivo de catálogo validado.
@@ -93,7 +91,7 @@ def validar_archivo_catalogo():
     archivo = sys.argv[1]
     existe_archivo(archivo)
     
-    datos = validar_estructura_catalogo(archivo)
+    datos = cargar_catalogo(archivo)
 
     return archivo, datos
 
@@ -103,8 +101,8 @@ def validar_archivo_vtas():
     Valida la existencia del archivo de registro de ventas.
     
     Verifica que el archivo especificado en el segundo argumento exista
-    en el sistema. En futuras versiones validará también el formato JSON
-    y consistencia de datos de ventas.
+    en el sistema. Valida también el formato JSON, el esquema del catálogo y
+    realiza la carga de la información.
     
     Returns:
         str: Ruta del archivo de ventas validado.
@@ -115,7 +113,7 @@ def validar_archivo_vtas():
     archivo = sys.argv[2]
     existe_archivo(archivo)
     
-    datos = validar_estructura_ventas(archivo)
+    datos = cargar_ventas(archivo)
 
     return archivo, datos
 
@@ -139,88 +137,207 @@ def existe_archivo(archivo):
         sys.exit(1)
 
 
-
-def validar_estructura_catalogo(nombre_archivo):
+def cargar_catalogo(nombre_archivo):
     """
-    Valida que el archivo JSON de catálogo cumpla con la estructura esperada.
+    Carga y valida todos los productos del catálogo.
     
-    Verifica la estructura del catálogo sin necesidad de procesar todos los
-    productos. Usa validación por muestreo del primer elemento como
-    representativo del esquema completo.
-    
-    Estructura esperada del catálogo:
-        - Archivo JSON válido
-        - Array de productos
-        - Cada producto con claves: title, type, description, filename,
-          height, width, price, rating
+    Procesa el archivo JSON completo validando cada producto individual.
+    Los productos con errores se reportan en consola pero el procesamiento
+    continúa. Solo se incluyen productos válidos en el resultado.
     
     Args:
-        nombre_archivo (str): Ruta del archivo JSON de catálogo a validar.
+        nombre_archivo (str): Ruta del archivo JSON de catálogo.
     
     Returns:
-        dict: Datos del catálogo si la validación es exitosa.
+        list: Lista de productos válidos cargados del catálogo.
     
     Raises:
-        SystemExit: Si el archivo no cumple con la estructura esperada.
-        
-    Note:
-        La validación del primer producto es suficiente como muestra
-        representativa, siguiendo el principio de eficiencia sin comprometer
-        integridad de datos (práctica recomendada en validación de schemas).
+        SystemExit: Si el archivo no puede ser leído o parseado como JSON.
     """
+    print(f"\nCargando catálogo desde '{nombre_archivo}'...")
     
+    # Abrir archivo
     try:
-        # 1. Validar que sea JSON válido
-        with open(nombre_archivo, 'r', encoding='utf-8') as archivo:
-            datos = json.load(archivo)
-            
-    except json.JSONDecodeError as e:
-        print(f"Error: El archivo '{nombre_archivo}' no contiene JSON válido.")
+        archivo = open(nombre_archivo, 'r', encoding='utf-8')
+    except Exception as e:
+        print(f"Error: No se pudo abrir el archivo '{nombre_archivo}'")
         print(f"Detalle: {e}")
+        sys.exit(1)
+    
+    # Cargar información validando la calidad de cada registro
+    try:
+        # Parsear JSON completo
+        datos = json.load(archivo)
+        
+        # Validar que sea array
+        if not isinstance(datos, list):
+            print("Error: El catálogo debe ser un array de productos.")
+            archivo.close()
+            sys.exit(1)
+        
+        productos_validos = []
+        productos_con_error = 0
+        
+        # Procesar cada producto
+        for indice, producto in enumerate(datos, start=1):
+            try:
+                # Validar que sea un diccionario
+                if not isinstance(producto, dict):
+                    raise ValueError(
+                        f"El elemento debe ser un objeto JSON, "
+                        f"se encontró: {type(producto).__name__}"
+                    )
+                
+                # Validar claves requeridas
+                claves_encontradas = set(producto.keys())
+                claves_faltantes = CLAVES_REQUERIDAS_CAT - claves_encontradas
+                
+                if claves_faltantes:
+                    raise ValueError(
+                        f"Faltan claves requeridas: "
+                        f"{', '.join(sorted(claves_faltantes))}"
+                    )
+                
+                # Validar tipos de datos
+                _validar_tipos_producto(producto)
+                
+                # Producto válido - agregarlo a la lista
+                productos_validos.append(producto)
+                
+            except ValueError as e:
+                # Reportar error pero continuar procesando
+                productos_con_error += 1
+                print(f"  Advertencia: Error en producto #{indice}: {e}")
+                print(f"    Producto ignorado: {producto}")
+        
+        # Resumen de carga
+        print("\nResumen de carga del catálogo:")
+        print(f"  Productos válidos cargados: {len(productos_validos)}")
+        if productos_con_error > 0:
+            print(f"  Productos con errores (ignorados): {productos_con_error}")
+        
+        # Validar que haya al menos un producto válido
+        if len(productos_validos) == 0:
+            print("\nError: No se encontraron productos válidos en el catálogo.")
+            archivo.close()
+            sys.exit(1)
+        
+    except json.JSONDecodeError as e:
+        print("Error: El archivo no contiene JSON válido.")
+        print(f"Detalle: {e}")
+        archivo.close()
         sys.exit(1)
     except Exception as e:
-        print(f"Error al leer el archivo '{nombre_archivo}': {e}")
+        print(f"Error inesperado al procesar el catálogo: {e}")
+        archivo.close()
         sys.exit(1)
     
-    # 2. Validar que sea un array
-    if not isinstance(datos, list):
-        print("Error: El catálogo debe ser un array de productos.")
-        print(f"Se encontró: {type(datos).__name__}")
-        sys.exit(1)
+    # Cerrar el archivo del catálogo
+    archivo.close()
     
-    # 3. Validar que no esté vacío
-    if len(datos) == 0:
-        print("Error: El catálogo está vacío. Debe contener al menos un producto.")
-        sys.exit(1)
+    return productos_validos
+
+
+def cargar_ventas(nombre_archivo):
+    """
+    Carga y valida todas las transacciones de ventas.
     
-    # 4. Validar estructura del PRIMER producto (muestra representativa)
-    primer_producto = datos[0]
+    Procesa el archivo JSON completo validando cada transacción individual.
+    Las transacciones con errores se reportan en consola pero el procesamiento
+    continúa. Solo se incluyen transacciones válidas en el resultado.
     
-    if not isinstance(primer_producto, dict):
-        print("Error: Los productos deben ser objetos JSON.")
-        print(f"Se encontró: {type(primer_producto).__name__}")
-        sys.exit(1)
+    Args:
+        nombre_archivo (str): Ruta del archivo JSON de ventas.
     
-    # Verificar que tenga todas las claves requeridas
-    claves_encontradas = set(primer_producto.keys())
-    claves_faltantes = CLAVES_REQUERIDAS_CAT - claves_encontradas
+    Returns:
+        list: Lista de transacciones válidas cargadas del registro.
     
-    if claves_faltantes:
-        print("Error: El producto no tiene la estructura completa.")
-        print(f"Claves faltantes: {', '.join(sorted(claves_faltantes))}")
-        sys.exit(1)
+    Raises:
+        SystemExit: Si el archivo no puede ser leído o parseado como JSON.
+    """
+    print(f"\nCargando registro de ventas desde '{nombre_archivo}'...")
     
-    # 5. Validar tipos de datos del primer producto
+    # Abrir archivo
     try:
-        _validar_tipos_producto(primer_producto)
-    except ValueError as e:
-        print("Error: Tipo de dato inválido en el catálogo.")
+        archivo = open(nombre_archivo, 'r', encoding='utf-8')
+    except Exception as e:
+        print(f"Error: No se pudo abrir el archivo '{nombre_archivo}'")
         print(f"Detalle: {e}")
         sys.exit(1)
     
-    # Validación exitosa
-    print(f"Catálogo validado: {len(datos)} productos encontrados.")
-    return datos
+    # Cargar información validando la calidad de cada registro
+    try:
+        # Parsear JSON completo
+        datos = json.load(archivo)
+        
+        # Validar que sea array
+        if not isinstance(datos, list):
+            print("Error: El registro de ventas debe ser un array de transacciones.")
+            archivo.close()
+            sys.exit(1)
+        
+        ventas_validas = []
+        ventas_con_error = 0
+        
+        # Procesar cada transacción
+        for indice, venta in enumerate(datos, start=1):
+            try:
+                # Validar que sea un diccionario
+                if not isinstance(venta, dict):
+                    raise ValueError(
+                        f"El elemento debe ser un objeto JSON, "
+                        f"se encontró: {type(venta).__name__}"
+                    )
+                
+                # Validar claves requeridas
+                claves_encontradas = set(venta.keys())
+                claves_faltantes = CLAVES_REQUERIDAS_VTAS - claves_encontradas
+                
+                if claves_faltantes:
+                    raise ValueError(
+                        f"Faltan claves requeridas: "
+                        f"{', '.join(sorted(claves_faltantes))}"
+                    )
+                
+                # Validar tipos de datos
+                _validar_tipos_venta(venta)
+                
+                # Transacción válida - agregarla a la lista
+                ventas_validas.append(venta)
+                
+            except ValueError as e:
+                # Reportar error pero continuar procesando
+                ventas_con_error += 1
+                print(f"  Advertencia: Error en transacción #{indice}: {e}")
+                print(f"    Transacción ignorada: {venta}")
+        
+        # Resumen de carga
+        print("\nResumen de carga del registro de ventas:")
+        print(f"  Transacciones válidas cargadas: {len(ventas_validas)}")
+        if ventas_con_error > 0:
+            print(f"  Transacciones con errores (ignoradas): {ventas_con_error}")
+        
+        # Validar que haya al menos una transacción válida
+        if len(ventas_validas) == 0:
+            print("\nError: No se encontraron transacciones válidas en el archivo "
+                  " de las ventas.")
+            archivo.close()
+            sys.exit(1)
+        
+    except json.JSONDecodeError as e:
+        print("Error: El archivo no contiene JSON válido.")
+        print(f"Detalle: {e}")
+        archivo.close()
+        sys.exit(1)
+    except Exception as e:
+        print(f"Error inesperado al procesar las ventas: {e}")
+        archivo.close()
+        sys.exit(1)
+    
+    # Cerrar el archivo del catálogo
+    archivo.close()
+    
+    return ventas_validas
 
 
 def _validar_tipos_producto(producto):
@@ -268,90 +385,6 @@ def _validar_tipos_producto(producto):
             f"El campo 'rating' debe ser entero. "
             f"Se encontró: {type(producto['rating']).__name__}"
         )
-        
-
-
-def validar_estructura_ventas(nombre_archivo):
-    """
-    Valida que el archivo JSON de ventas cumpla con la estructura esperada.
-    
-    Verifica la estructura del registro de ventas sin necesidad de procesar
-    todas las transacciones. Usa validación por muestreo del primer elemento
-    como representativo del esquema completo.
-    
-    Estructura esperada del registro de ventas:
-        - Archivo JSON válido
-        - Array de transacciones
-        - Cada transacción con claves: SALE_ID, SALE_Date, Product, Quantity
-    
-    Args:
-        nombre_archivo (str): Ruta del archivo JSON de ventas a validar.
-    
-    Returns:
-        dict: Datos del registro de ventas si la validación es exitosa.
-    
-    Raises:
-        SystemExit: Si el archivo no cumple con la estructura esperada.
-        
-    Note:
-        La validación de la primera transacción es suficiente como muestra
-        representativa, siguiendo el principio de eficiencia sin comprometer
-        integridad de datos.
-    """
-    
-    try:
-        # 1. Validar que sea JSON válido
-        with open(nombre_archivo, 'r', encoding='utf-8') as archivo:
-            datos = json.load(archivo)
-            
-    except json.JSONDecodeError as e:
-        print(f"Error: El archivo '{nombre_archivo}' no contiene JSON válido.")
-        print(f"Detalle: {e}")
-        sys.exit(1)
-    except Exception as e:
-        print(f"Error al leer el archivo '{nombre_archivo}': {e}")
-        sys.exit(1)
-    
-    # 2. Validar que sea un array
-    if not isinstance(datos, list):
-        print("Error: El registro de ventas debe ser un array de transacciones.")
-        print(f"Se encontró: {type(datos).__name__}")
-        sys.exit(1)
-    
-    # 3. Validar que no esté vacío
-    if len(datos) == 0:
-        print("Error: El registro de ventas está vacío.")
-        print("Debe contener al menos una transacción.")
-        sys.exit(1)
-    
-    # 4. Validar estructura de la PRIMERA transacción (muestra representativa)
-    primera_venta = datos[0]
-    
-    if not isinstance(primera_venta, dict):
-        print("Error: Las transacciones deben ser objetos JSON.")
-        print(f"Se encontró: {type(primera_venta).__name__}")
-        sys.exit(1)
-    
-    # Verificar que tenga todas las claves requeridas
-    claves_encontradas = set(primera_venta.keys())
-    claves_faltantes = CLAVES_REQUERIDAS_VTAS - claves_encontradas
-    
-    if claves_faltantes:
-        print("Error: La transacción no tiene la estructura completa.")
-        print(f"Claves faltantes: {', '.join(sorted(claves_faltantes))}")
-        sys.exit(1)
-    
-    # 5. Validar tipos de datos de la primera transacción
-    try:
-        _validar_tipos_venta(primera_venta)
-    except ValueError as e:
-        print("Error: Tipo de dato inválido en el registro de ventas.")
-        print(f"Detalle: {e}")
-        sys.exit(1)
-    
-    # Validación exitosa
-    print(f"Registro de ventas validado: {len(datos)} transacciones encontradas.")
-    return datos
 
 
 def _validar_tipos_venta(venta):
