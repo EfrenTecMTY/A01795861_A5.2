@@ -46,8 +46,8 @@ def main():
 
     tiempo_inicio = time.time()
 
-    archivo_catalogo, catalogo = validar_archivo_catalogo()
-    archivo_vtas, vtas = validar_archivo_vtas()
+    catalogo = validar_archivo_catalogo()
+    vtas = validar_archivo_vtas()
 
     # Calcular ventas por producto
     ventas_x_producto = calcular_ventas(catalogo, vtas)
@@ -99,7 +99,7 @@ def validar_archivo_catalogo():
 
     datos = cargar_catalogo(archivo)
 
-    return archivo, datos
+    return datos
 
 
 def validar_archivo_vtas():
@@ -121,7 +121,7 @@ def validar_archivo_vtas():
 
     datos = cargar_ventas(archivo)
 
-    return archivo, datos
+    return datos
 
 
 def calcular_ventas(catalogo, ventas):
@@ -311,98 +311,99 @@ def guardar_reporte_vtas(ventas_procesadas, tiempo_ejecucion,
         en el directorio actual y se notifica al usuario.
     """
     # Validar y determinar la ruta final
-    ruta_final = ""
-
+    ruta_completa = nombre_archivo
     if ruta and ruta.strip():  # Si se especificó una ruta
         # Validar que la ruta exista
         if os.path.exists(ruta) and os.path.isdir(ruta):
-            ruta_final = ruta
+            ruta_completa = os.path.join(ruta, nombre_archivo)
         else:
-            print(f"\nAdvertencia: La ruta '{ruta}' no es válida.")
-            print("Se guardará en el directorio actual.")
+            print(f"\nAdvertencia: La ruta '{ruta}' no es válida." +
+                  "Se guardará en el directorio actual.")
 
-    # Construir ruta completa del archivo
-    if ruta_final:
-        ruta_completa = os.path.join(ruta_final, nombre_archivo)
-    else:
-        ruta_completa = nombre_archivo
-
-    # Abrir archivo para escritura
+    # Abrir archivo
     try:
-        archivo = open(ruta_completa, 'w', encoding='utf-8')
-    except Exception as e:
-        print(f"\nError: No se pudo crear el archivo '{ruta_completa}'")
-        print(f"Detalle: {e}")
-        return None
-
-    # Escribir contenido del reporte
-    try:
-        # Encabezado
-        archivo.write("=" * ANCHO_LINEA + "\n")
-        archivo.write("REPORTE DE VENTAS\n")
-        archivo.write("=" * ANCHO_LINEA + "\n")
-        # Agrupar ventas por tipo de producto
-        ventas_por_tipo = {}
-        for venta in ventas_procesadas:
-            tipo = venta['type']
-            if tipo not in ventas_por_tipo:
-                ventas_por_tipo[tipo] = []
-            ventas_por_tipo[tipo].append(venta)
-        # Ordenar tipos alfabéticamente
-        tipos_ordenados = sorted(ventas_por_tipo.keys())
-        gran_total = 0.0
-        # Encabezado de columnas
-        archivo.write(f"\n{'Producto':<30} {'Cantidad':>12} {'Costo':>15}\n")
-        archivo.write("-" * ANCHO_LINEA + "\n")
-        # Procesar cada tipo de producto
-        for tipo in tipos_ordenados:
-            productos = ventas_por_tipo[tipo]
-            # Ordenar productos por costo de venta (mayor a menor)
-            productos.sort(key=lambda x: x['price']
-                           * x['total_qty'], reverse=True)
-            # Encabezado del tipo
-            archivo.write(f"\nTipo de producto: {tipo.capitalize()}\n")
-
-            subtotal_tipo = 0.0
-            # Escribir cada producto del tipo
-            for producto in productos:
-                nombre = producto['product']
-                cantidad = producto['total_qty']
-                costo = producto['price'] * producto['total_qty']
-
-                archivo.write(f"{nombre:<30} {cantidad:>12.2f}" +
-                              "{costo:>15.2f}\n")
-                subtotal_tipo += costo
-
-            # Subtotal del tipo
-            archivo.write(f"{'Total ' + tipo.capitalize() + ':':<30} "
-                          f"{'':<12} {subtotal_tipo:>15.2f}\n")
+        with open(ruta_completa, 'w', encoding='utf-8') as archivo:
+            # Encabezado
+            archivo.write("=" * ANCHO_LINEA + "\n")
+            archivo.write("REPORTE DE VENTAS\n")
             archivo.write("=" * ANCHO_LINEA + "\n")
 
-            gran_total += subtotal_tipo
+            # Agrupar ventas por tipo de producto
+            ventas_por_tipo = {}
+            for venta in ventas_procesadas:
+                tipo = venta['type']
+                if tipo not in ventas_por_tipo:
+                    ventas_por_tipo[tipo] = []
+                ventas_por_tipo[tipo].append(venta)
 
-        # Gran total
-        archivo.write(f"\n{'Gran total:':<30} {'':<12} {gran_total:>15.2f}\n")
-        archivo.write("=" * ANCHO_LINEA + "\n")
+            # Ordenar tipos alfabéticamente
+            tipos_ordenados = sorted(ventas_por_tipo.keys())
+            gran_total = 0.0
 
-        # Tiempo de ejecución
-        archivo.write(f"\nTiempo de ejecución: {
-                      tiempo_ejecucion:.4f} segundos\n")
-        archivo.write("=" * ANCHO_LINEA + "\n")
+            # Encabezado de columnas
+            archivo.write(f"\n{'Producto':<30} {'Cantidad':>12} {
+                          'Costo':>15}\n")
+            archivo.write("-" * ANCHO_LINEA + "\n")
 
+            # Procesar cada tipo de producto
+            for tipo in tipos_ordenados:
+                productos = ventas_por_tipo[tipo]
+
+                # Ordenar productos por costo de venta (mayor a menor)
+                productos.sort(key=lambda x: x['price'] * x['total_qty'],
+                               reverse=True)
+
+                # Encabezado del tipo
+                archivo.write(f"\nTipo de producto: {
+                              tipo.capitalize()}\n")
+
+                subtotal_tipo = 0.0
+
+                # Escribir cada producto del tipo
+                for producto in productos:
+                    archivo.write(f"{producto['product']:<30} {
+                                  producto['total_qty']:>12.2f} {
+                                  producto['price'] *
+                                  producto['total_qty']:>15.2f}\n")
+                    subtotal_tipo += producto['price'] * producto['total_qty']
+
+                # Subtotal del tipo
+                archivo.write(f"{'Total ' + tipo.capitalize() + ':':<30} {
+                              '':<12} {subtotal_tipo:>15.2f}\n")
+                archivo.write("=" * ANCHO_LINEA + "\n")
+
+                gran_total += subtotal_tipo
+
+            # Gran total
+            archivo.write(f"\n{'Gran total:':<30} {'':<12} {
+                          gran_total:>15.2f}\n")
+            archivo.write("=" * ANCHO_LINEA + "\n")
+
+            # Tiempo de ejecución
+            archivo.write(f"\nTiempo de ejecución: {
+                          tiempo_ejecucion:.4f} segundos\n")
+            archivo.write("=" * ANCHO_LINEA + "\n")
+
+        # Notificar al usuario
+        print(f"\nReporte guardado exitosamente en: {
+              os.path.abspath(ruta_completa)}")
+
+    except FileNotFoundError:
+        print(f"\nError: No se pudo crear el archivo '{ruta_completa}'" +
+              "El directorio no existe.")
+    except PermissionError as e:
+        print(f"\nError: No se pudo crear el archivo '{ruta_completa}'"
+              f"Detalle: Permisos insuficientes - {e}")
+    except OSError as e:
+        print(f"\nError: No se pudo crear el archivo '{ruta_completa}'"
+              f"Detalle: Error de sistema - {e}")
     except Exception as e:
+        # Pylint se queja de esto:
+        # 400:11: W0718: Catching too general exception Exception
+        #        (broad-exception-caught)
+        # Sin embargo, esta puesto por cualquiere error inesperado, así que no
+        # se elimina por que a pylint no le gusta.
         print(f"\nError al escribir en el archivo: {e}")
-        archivo.close()
-        return None
-
-    # Cerrar archivo
-    archivo.close()
-    # Obtener ruta absoluta para mostrar al usuario
-    ruta_absoluta = os.path.abspath(ruta_completa)
-
-    # Notificar al usuario
-    print("\nReporte guardado exitosamente en:")
-    print(f"  {ruta_absoluta}")
 
 
 def _existe_archivo(archivo):
@@ -444,86 +445,87 @@ def cargar_catalogo(nombre_archivo):
     """
     print(f"\nCargando catálogo desde '{nombre_archivo}'...")
 
-    # Abrir archivo
+    # Abrir y procesar archivo
     try:
-        archivo = open(nombre_archivo, 'r', encoding='utf-8')
-    except Exception as e:
+        with open(nombre_archivo, 'r', encoding='utf-8') as archivo:
+            # Parsear JSON completo
+            datos = json.load(archivo)
+
+            # Validar que sea array
+            if not isinstance(datos, list):
+                print("Error: El catálogo debe ser un array de productos.")
+                sys.exit(1)
+
+            productos_validos = []
+            productos_con_error = 0
+
+            # Procesar cada producto
+            for indice, producto in enumerate(datos, start=1):
+                try:
+                    # Validar que sea un diccionario
+                    if not isinstance(producto, dict):
+                        raise ValueError(
+                            f"El elemento debe ser un objeto JSON, "
+                            f"se encontró: {type(producto).__name__}"
+                        )
+
+                    # Validar claves requeridas
+                    claves_encontradas = set(producto.keys())
+                    claves_faltantes = (CLAVES_REQUERIDAS_CAT -
+                                        claves_encontradas)
+
+                    if claves_faltantes:
+                        raise ValueError(
+                            f"Faltan claves requeridas: "
+                            f"{', '.join(sorted(claves_faltantes))}"
+                        )
+
+                    # Validar tipos de datos
+                    _validar_tipos_producto(producto)
+
+                    # Producto válido - agregarlo a la lista
+                    productos_validos.append(producto)
+
+                except ValueError as e:
+                    # Reportar error pero continuar procesando
+                    productos_con_error += 1
+                    print(f"  Advertencia: Error en producto #{indice}: {e}")
+                    print(f"    Producto ignorado: {producto}")
+
+            # Resumen de carga
+            print("\nResumen de carga del catálogo:")
+            print(f"  Productos válidos cargados: "
+                  f"{len(productos_validos)}")
+            if productos_con_error > 0:
+                print(f"  Productos con errores (ignorados): "
+                      f"{productos_con_error}")
+
+            # Validar que haya al menos un producto válido
+            if len(productos_validos) == 0:
+                print("\nError: No se encontraron productos válidos en el "
+                      "catálogo.")
+                sys.exit(1)
+
+    except FileNotFoundError:
         print(f"Error: No se pudo abrir el archivo '{nombre_archivo}'")
-        print(f"Detalle: {e}")
+        print("El archivo no existe.")
         sys.exit(1)
-
-    # Cargar información validando la calidad de cada registro
-    try:
-        # Parsear JSON completo
-        datos = json.load(archivo)
-
-        # Validar que sea array
-        if not isinstance(datos, list):
-            print("Error: El catálogo debe ser un array de productos.")
-            archivo.close()
-            sys.exit(1)
-
-        productos_validos = []
-        productos_con_error = 0
-
-        # Procesar cada producto
-        for indice, producto in enumerate(datos, start=1):
-            try:
-                # Validar que sea un diccionario
-                if not isinstance(producto, dict):
-                    raise ValueError(
-                        f"El elemento debe ser un objeto JSON, "
-                        f"se encontró: {type(producto).__name__}"
-                    )
-
-                # Validar claves requeridas
-                claves_encontradas = set(producto.keys())
-                claves_faltantes = CLAVES_REQUERIDAS_CAT - claves_encontradas
-
-                if claves_faltantes:
-                    raise ValueError(
-                        f"Faltan claves requeridas: "
-                        f"{', '.join(sorted(claves_faltantes))}"
-                    )
-
-                # Validar tipos de datos
-                _validar_tipos_producto(producto)
-
-                # Producto válido - agregarlo a la lista
-                productos_validos.append(producto)
-
-            except ValueError as e:
-                # Reportar error pero continuar procesando
-                productos_con_error += 1
-                print(f"  Advertencia: Error en producto #{indice}: {e}")
-                print(f"    Producto ignorado: {producto}")
-
-        # Resumen de carga
-        print("\nResumen de carga del catálogo:")
-        print(f"  Productos válidos cargados: {len(productos_validos)}")
-        if productos_con_error > 0:
-            print(f"  Productos con errores (ignorados): {
-                  productos_con_error}")
-
-        # Validar que haya al menos un producto válido
-        if len(productos_validos) == 0:
-            print("\nError: No se encontraron productos válidos en el " +
-                  "catálogo.")
-            archivo.close()
-            sys.exit(1)
-
+    except PermissionError as e:
+        print(f"Error: No se pudo abrir el archivo '{nombre_archivo}'")
+        print(f"Detalle: Permisos insuficientes - {e}")
+        sys.exit(1)
     except json.JSONDecodeError as e:
         print("Error: El archivo no contiene JSON válido.")
         print(f"Detalle: {e}")
-        archivo.close()
         sys.exit(1)
     except Exception as e:
+        # Pylint se queja de esto:
+        # 400:11: W0718: Catching too general exception Exception
+        #        (broad-exception-caught)
+        # Sin embargo, esta puesto por cualquiere error inesperado, así que no
+        # se elimina por que a pylint no le gusta.
         print(f"Error inesperado al procesar el catálogo: {e}")
-        archivo.close()
         sys.exit(1)
-
-    # Cerrar el archivo del catálogo
-    archivo.close()
 
     return productos_validos
 
@@ -547,84 +549,89 @@ def cargar_ventas(nombre_archivo):
     """
     print(f"\nCargando registro de ventas desde '{nombre_archivo}'...")
 
-    # Abrir archivo
+    # Abrir y procesar archivo
     try:
-        archivo = open(nombre_archivo, 'r', encoding='utf-8')
-    except Exception as e:
-        print(f"Error: No se pudo abrir el archivo '{nombre_archivo}'")
-        print(f"Detalle: {e}")
+        with open(nombre_archivo, 'r', encoding='utf-8') as archivo:
+            # Parsear JSON completo
+            datos = json.load(archivo)
+
+            # Validar que sea array
+            if not isinstance(datos, list):
+                print("Error: El registro de ventas debe ser un array de "
+                      "transacciones.")
+                sys.exit(1)
+
+            ventas_validas = []
+            ventas_con_error = 0
+
+            # Procesar cada transacción
+            for indice, venta in enumerate(datos, start=1):
+                try:
+                    # Validar que sea un diccionario
+                    if not isinstance(venta, dict):
+                        raise ValueError(
+                            f"El elemento debe ser un objeto JSON, "
+                            f"se encontró: {type(venta).__name__}"
+                        )
+
+                    # Validar claves requeridas
+                    claves_encontradas = set(venta.keys())
+                    claves_faltantes = (CLAVES_REQUERIDAS_VTAS -
+                                        claves_encontradas)
+
+                    if claves_faltantes:
+                        raise ValueError(
+                            f"Faltan claves requeridas: "
+                            f"{', '.join(sorted(claves_faltantes))}"
+                        )
+
+                    # Validar tipos de datos
+                    _validar_tipos_venta(venta)
+
+                    # Transacción válida - agregarla a la lista
+                    ventas_validas.append(venta)
+
+                except ValueError as e:
+                    # Reportar error pero continuar procesando
+                    ventas_con_error += 1
+                    print(f"  Advertencia: Error en transacción #{indice}: "
+                          f"{e}")
+                    print(f"    Transacción ignorada: {venta}")
+
+            # Resumen de carga
+            print("\nResumen de carga del registro de ventas:")
+            print(f"  Transacciones válidas cargadas: "
+                  f"{len(ventas_validas)}")
+            if ventas_con_error > 0:
+                print(f"  Transacciones con errores (ignoradas): "
+                      f"{ventas_con_error}")
+
+            # Validar que haya al menos una transacción válida
+            if len(ventas_validas) == 0:
+                print("\nError: No se encontraron transacciones válidas en "
+                      "el archivo de las ventas.")
+                sys.exit(1)
+
+    except FileNotFoundError:
+        print(f"Error: No se pudo abrir el archivo '{nombre_archivo}'" +
+              "El archivo no existe.")
         sys.exit(1)
-
-    # Cargar información validando la calidad de cada registro
-    try:
-        # Parsear JSON completo
-        datos = json.load(archivo)
-
-        # Validar que sea array
-        if not isinstance(datos, list):
-            print("Error: El registro de ventas debe ser un array de " +
-                  "transacciones.")
-            archivo.close()
-            sys.exit(1)
-
-        ventas_validas = []
-        ventas_con_error = 0
-        # Procesar cada transacción
-        for indice, venta in enumerate(datos, start=1):
-            try:
-                # Validar que sea un diccionario
-                if not isinstance(venta, dict):
-                    raise ValueError(
-                        f"El elemento debe ser un objeto JSON, "
-                        f"se encontró: {type(venta).__name__}"
-                    )
-                # Validar claves requeridas
-                claves_encontradas = set(venta.keys())
-                claves_faltantes = CLAVES_REQUERIDAS_VTAS - claves_encontradas
-                if claves_faltantes:
-                    raise ValueError(
-                        f"Faltan claves requeridas: "
-                        f"{', '.join(sorted(claves_faltantes))}"
-                    )
-
-                # Validar tipos de datos
-                _validar_tipos_venta(venta)
-
-                # Transacción válida - agregarla a la lista
-                ventas_validas.append(venta)
-
-            except ValueError as e:
-                # Reportar error pero continuar procesando
-                ventas_con_error += 1
-                print(f"  Advertencia: Error en transacción #{indice}: {e}")
-                print(f"    Transacción ignorada: {venta}")
-
-        # Resumen de carga
-        print("\nResumen de carga del registro de ventas:")
-        print(f"  Transacciones válidas cargadas: {len(ventas_validas)}")
-        if ventas_con_error > 0:
-            print(f"  Transacciones con errores (ignoradas): {
-                  ventas_con_error}")
-
-        # Validar que haya al menos una transacción válida
-        if len(ventas_validas) == 0:
-            print("\nError: No se encontraron transacciones válidas en el " +
-                  "archivo de las ventas.")
-            archivo.close()
-            sys.exit(1)
-
+    except PermissionError as e:
+        print(f"Error: No se pudo abrir el archivo '{nombre_archivo}'")
+        print(f"Detalle: Permisos insuficientes - {e}")
+        sys.exit(1)
     except json.JSONDecodeError as e:
         print("Error: El archivo no contiene JSON válido.")
         print(f"Detalle: {e}")
-        archivo.close()
         sys.exit(1)
     except Exception as e:
+        # Pylint se queja de esto:
+        # 400:11: W0718: Catching too general exception Exception
+        #        (broad-exception-caught)
+        # Sin embargo, esta puesto por cualquiere error inesperado, así que no
+        # se elimina por que a pylint no le gusta.
         print(f"Error inesperado al procesar las ventas: {e}")
-        archivo.close()
         sys.exit(1)
-
-    # Cerrar el archivo del catálogo
-    archivo.close()
 
     return ventas_validas
 

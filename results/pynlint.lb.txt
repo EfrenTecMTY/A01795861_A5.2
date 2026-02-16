@@ -1,0 +1,17 @@
+************* Module computeSales
+source\computeSales.py:1:0: C0103: Module name "computeSales" doesn't conform to snake_case naming style (invalid-name)
+source\computeSales.py:287:0: R0914: Too many local variables (20/15) (too-many-locals)
+source\computeSales.py:333:11: W0718: Catching too general exception Exception (broad-exception-caught)
+source\computeSales.py:393:11: W0718: Catching too general exception Exception (broad-exception-caught)
+source\computeSales.py:287:0: R0915: Too many statements (53/50) (too-many-statements)
+source\computeSales.py:332:18: R1732: Consider using 'with' for resource-allocating operations (consider-using-with)
+source\computeSales.py:450:11: W0718: Catching too general exception Exception (broad-exception-caught)
+source\computeSales.py:520:11: W0718: Catching too general exception Exception (broad-exception-caught)
+source\computeSales.py:449:18: R1732: Consider using 'with' for resource-allocating operations (consider-using-with)
+source\computeSales.py:553:11: W0718: Catching too general exception Exception (broad-exception-caught)
+source\computeSales.py:621:11: W0718: Catching too general exception Exception (broad-exception-caught)
+source\computeSales.py:552:18: R1732: Consider using 'with' for resource-allocating operations (consider-using-with)
+
+------------------------------------------------------------------
+Your code has been rated at 9.57/10 (previous run: 9.57/10, +0.00)
+
